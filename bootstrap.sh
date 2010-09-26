@@ -26,12 +26,13 @@ else
 	cd libantlr3c-3.2 && \
 	./configure --prefix="$MYPWD"/antlr-3.2 $FLAGS64 --disable-shared && \
 	make && \
-	make install
+	make install && \
+	cd "$MYPWD"
 fi
 if [ -e antlr-3.2.jar -o -e antlr-3.2/lib/libantlr3c.a ]; then
 	true
 else
-	exit 1
+	echo "Compile finished, but couldn't find all output files."; exit 1
 fi
 
 echo "Type 'make' to compile javascript files."
