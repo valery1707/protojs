@@ -753,7 +753,7 @@ PROTO.array =
         };
         ProtoArray.IsInitialized = function IsInitialized(val) {
             return val.length > 0;
-        }
+        };
         ProtoArray.prototype = {};
         ProtoArray.prototype.push = function (var_args) {
             if (arguments.length === 0) {
@@ -1313,7 +1313,9 @@ PROTO.Message = function(name, properties) {
             }
         },
         IsInitialized: function IsInitialized() {
+            var checked_any = false;
             for (var key in this.properties_) {
+                checked_any = true;
                 if (this.values_[key] !== undefined) {
                     var descriptor = this.properties_[key];
                     if (!descriptor.type()) continue;
@@ -1330,6 +1332,13 @@ PROTO.Message = function(name, properties) {
                     }
                 }
             }
+            // As a special case, if there weren't any fields, we
+            // treat it as initialized. This allows us to send
+            // messages that are empty, but whose presence indicates
+            // something.
+            if (!checked_any) return true;
+            // Otherwise, we checked at least one and it failed, so we
+            // must be uninitialized.
             return false;
         },
         ParseFromStream: function Parse(stream) {
@@ -1557,4 +1566,3 @@ if (typeof(console.log)=="undefined") console.log = function(message){
     if (document && document.body)
         document.body.appendChild(document.createTextNode(message+"..."));
 };
-
