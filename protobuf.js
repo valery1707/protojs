@@ -1286,7 +1286,7 @@ PROTO.Message = function(name, properties) {
     };
     Composite.SerializeToStream = function(value, stream) {
         var bytearr = new Array();
-        var bas = new PROTO.ByteArrayStream(bytearr)
+        var bas = new PROTO.ByteArrayStream(bytearr);
         value.SerializeToStream(bas);
         return PROTO.bytes.SerializeToStream(bytearr, stream);
     };
@@ -1377,7 +1377,11 @@ PROTO.Message = function(name, properties) {
             } else {
                 var type = descriptor.type();
                 if (type && type.composite) {
-                    this.values_[propname] = new type();
+                    // Don't special case this. Otherwise, we can't actually
+                    // tell whether a composite child was initialized
+                    // intentionally or if it just happened here.
+                    //this.values_[propname] = new type();
+                    delete this.values_[propname];
                 } else {
                     delete this.values_[propname];
                 }
