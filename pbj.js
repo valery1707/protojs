@@ -131,7 +131,7 @@ PBJ.time.Convert = function(date) {
     } else if (date instanceof PROTO.I64) {
         return date;
     }
-    return PROTO.I64.fromNumber(date*1000);
+    return PROTO.I64.fromNumber(date);
 };
 // Can fit us since 1970 into a double, with 2 extra bits of precision.
 PBJ.time.toString = function(arg) {
