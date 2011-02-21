@@ -242,6 +242,28 @@ PROTO.I64.prototype = {
         }
         return new PROTO.I64(local_msw,local_lsw,this.sign);        
     },
+    less:function(other){
+        if (other.sign!=this.sign) {
+            return this.sign<0;
+        }
+        var a=this,b=other;
+        if (this.sign<0) {
+            b=this;a=other;
+        }
+        if (a.msb==b.msb)
+            return a.lsb<b.lsb;
+        if (a.msb<b.msb)
+            return true;
+        return false;
+    },
+    unsigned_less:function(other){
+        var a=this,b=other;
+        if (a.msb==b.msb)
+            return a.lsb<b.lsb;
+        if (a.msb<b.msb)
+            return true;
+        return false;
+    },
     add : function(other) {
         if (other.sign<0 && this.sign>=0)
             return this.sub(new PROTO.I64(other.msw,other.lsw,-other.sign));
