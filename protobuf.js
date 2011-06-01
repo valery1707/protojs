@@ -621,6 +621,12 @@ PROTO.ByteArrayStream = function(arr) {
 };
 PROTO.ByteArrayStream.prototype = new PROTO.Stream();
 PROTO.ByteArrayStream.prototype.read = function(amt) {
+    if (this.read_pos_+amt > this.array_.length) {
+        // incomplete stream.
+        //throw new Error("Read past end of protobuf ByteArrayStream: "+
+        //                this.array_.length+" < "+this.read_pos_+amt);
+        return null;
+    }
     var ret = this.array_.slice(this.read_pos_, this.read_pos_+amt);
     this.read_pos_ += amt;
     return ret;
@@ -1131,6 +1137,9 @@ PROTO.mergeProperties = function(properties, stream, values) {
                     }
                 } else {
                     nextval = nextproptype.ParseFromStream(stream);
+                    if (nextval == null) {
+                        return false;
+                    }
                 }
             } else {
                 PROTO.bytes.ParseFromStream(stream);
@@ -1182,6 +1191,7 @@ PROTO.mergeProperties = function(properties, stream, values) {
             }
         }
     }
+    return true;
 };
 
 /*
@@ -1365,10 +1375,10 @@ PROTO.Message = function(name, properties) {
         },
         ParseFromStream: function Parse(stream) {
             this.Clear();
-            this.MergeFromStream(stream);
+            return this.MergeFromStream(stream);
         },
         MergeFromStream: function Merge(stream) {
-            PROTO.mergeProperties(this.properties_, stream, this.values_);
+            return PROTO.mergeProperties(this.properties_, stream, this.values_);
         },
         SerializeToStream: function Serialize(outstream) {
             var hasfields = this.computeHasFields();
@@ -1383,11 +1393,11 @@ PROTO.Message = function(name, properties) {
             return stream.getArray();
         },
         MergeFromArray: function (array) {
-            this.MergeFromStream(new PROTO.ByteArrayStream(array));
+            return this.MergeFromStream(new PROTO.ByteArrayStream(array));
         },
         ParseFromArray: function (array) {
             this.Clear();
-            this.MergeFromArray(array);
+            return this.MergeFromArray(array);
         },
         // Not implemented:
         // CopyFrom, MergeFrom, SerializePartialToX,
