@@ -110,7 +110,8 @@ PBJ.vector4d=vectorGenerator(4,PROTO.Double);
 PBJ.vector4f=vectorGenerator(4,PROTO.Float);
 
 PBJ.normal=vectorGenerator(2,PROTO.Float,true);
-PBJ.quaternion=vectorGenerator(3,PROTO.Float,true);
+PBJ.unitquaternion=vectorGenerator(3,PROTO.Float,true);
+PBJ.quaternion=vectorGenerator(4,PROTO.Float);
 
 PBJ.duration = PROTO.cloneType(PROTO.sfixed64);
 PBJ.duration.Convert = function(ms) {

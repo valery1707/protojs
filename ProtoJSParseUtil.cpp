@@ -646,9 +646,9 @@ void defineExtension(pProtoJSParser ctx, pANTLR3_STRING id){
 int getNumItemsPerElement(pProtoJSParser ctx, pANTLR3_STRING type) {
     if (strcmp((char*)type->chars,"normal")==0||strcmp((char*)type->chars,"vector2f")==0||strcmp((char*)type->chars,"vector2d")==0)
         return 2;
-    if (strcmp((char*)type->chars,"quaternion")==0||strcmp((char*)type->chars,"vector3f")==0||strcmp((char*)type->chars,"vector3d")==0)
+    if (strcmp((char*)type->chars,"unitquaternion")==0||strcmp((char*)type->chars,"vector3f")==0||strcmp((char*)type->chars,"vector3d")==0)
         return 3;
-    if (strcmp((char*)type->chars,"vector4f")==0||strcmp((char*)type->chars,"vector4d")==0||strcmp((char*)type->chars,"boundingsphere3f")==0||strcmp((char*)type->chars,"boundingsphere3d")==0)
+    if (strcmp((char*)type->chars,"quaternion")==0||strcmp((char*)type->chars,"vector4f")==0||strcmp((char*)type->chars,"vector4d")==0||strcmp((char*)type->chars,"boundingsphere3f")==0||strcmp((char*)type->chars,"boundingsphere3d")==0)
         return 4;
     if (strcmp((char*)type->chars,"boundingbox3f3f")==0||strcmp((char*)type->chars,"boundingbox3d3f")==0)
         return 6;
@@ -742,6 +742,8 @@ const char *getCsType(pProtoJSParser ctx, pANTLR3_STRING type, pANTLR3_STRING em
         return "ProtoJS.Vector2f";        
     if (strcmp((char*)type->chars,"vector2d")==0)
         return "ProtoJS.Vector2d";        
+    if (strcmp((char*)type->chars,"unitquaternion")==0)
+        return "ProtoJS.UnitQuaternion";
     if (strcmp((char*)type->chars,"quaternion")==0)
         return "ProtoJS.Quaternion";
     if (strcmp((char*)type->chars,"vector3f")==0)
@@ -858,6 +860,8 @@ const char *getCppType(pProtoJSParser ctx, pANTLR3_STRING type) {
         return "ProtoJS::Vector2f";        
     if (strcmp((char*)type->chars,"vector2d")==0)
         return "ProtoJS::Vector2d";        
+    if (strcmp((char*)type->chars,"unitquaternion")==0)
+        return "ProtoJS::Quaternion";
     if (strcmp((char*)type->chars,"quaternion")==0)
         return "ProtoJS::Quaternion";
     if (strcmp((char*)type->chars,"vector3f")==0)
@@ -885,6 +889,8 @@ const char *getArrayType(pProtoJSParser ctx, pANTLR3_STRING type) {
         return "float";        
     if (strcmp((char*)type->chars,"vector2d")==0)
         return "double";        
+    if (strcmp((char*)type->chars,"unitquaternion")==0)
+        return "float";
     if (strcmp((char*)type->chars,"quaternion")==0)
         return "float";
     if (strcmp((char*)type->chars,"vector3f")==0)

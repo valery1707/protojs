@@ -503,6 +503,7 @@ multiplicitive_advanced_type
     |   VECTOR3D
     |   VECTOR4F
     |   VECTOR4D
+    |   UNITQUATERNION 
     |   QUATERNION 
     |   BOUNDINGSPHERE3F 
     |   BOUNDINGSPHERE3D 
@@ -638,6 +639,7 @@ VECTOR3F : 'vector3f';
 VECTOR3D : 'vector3d';
 VECTOR4F : 'vector4f';
 VECTOR4D : 'vector4d';
+UNITQUATERNION : 'unitquaternion';
 QUATERNION : 'quaternion';
 BOUNDINGSPHERE3F : 'boundingsphere3f';
 BOUNDINGSPHERE3D : 'boundingsphere3d';
