@@ -4,15 +4,16 @@ if [ -e antlr-3.2.jar ]; then
 	true
 else
 	echo "Downloading ANTLR 3.2 JAR from http://www.antlr.org/download.html"
-	wget -c http://www.antlr.org/download/antlr-3.2.jar || \
-	(echo "Failed to download ANTLR. Aborting."; exit 1)
+	curl http://www.antlr.org/download/antlr-3.2.jar > antlr-3.2.jar || \
+	(echo "Failed to download ANTLR. Aborting.";rm -f antlr-3.2.jar;exit 1)
 fi
 if [ -e antlr-3.2/lib/libantlr3c.a -o -e libantlr3c-3.2.tar.gz ]; then
 	true
 else
 	echo "Downloading ANTLR 3.2 C Runtime from http://www.antlr.org/download/C"
-	wget -c http://www.antlr.org/download/C/libantlr3c-3.2.tar.gz || \
-	(echo "Failed to download ANTLR. Aborting."; exit 1)
+	curl http://www.antlr.org/download/C/libantlr3c-3.2.tar.gz \
+		> libantlr3c-3.2.tar.gz || \
+	(echo "Failed to download. Aborting.";rm libantlr3c-3.2.tar.gz;exit 1)
 fi
 if [ -e antlr-3.2/lib/libantlr3c.a ]; then
 	true
