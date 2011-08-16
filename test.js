@@ -79,18 +79,19 @@ window.onload = function() {
   extmsg.v2f = [1.25, 2.5]
   extmsg.xxd = 3.14159265358979323846264;
   extmsg.xxf = .12345678
-  extmsg.xxbb.push(extmsg); // serializes extmsg into bytes.
-  extmsg.xxbb.push([1,2,3,4,5,6,7,8,255,254,253,252,251,250,249,248]);
-  extmsg.xxff.push(1);
+  extmsg.xxbb = [extmsg, // serializes extmsg into bytes.
+      [1,2,3,4,5,6,7,8,255,254,253,252,251,250,249,248]]; // test list assign.
+  extmsg.xxff.push(1); // test push
   extmsg.xxff.push(123456789123456789);
   extmsg.xxff.push(-1.345e-30);
   extmsg.xxfr = .1;
   extmsg.xxs = ("\u59cb");
-  extmsg.xxss.push("Hello world! \u3053\u3093\u306b\u3061\u306f, \u4e16\u754c\u3002\u300e\ud840\ude0c\ud840\udda4\ud840\udda9\ud840\uddab\u300f");
-  extmsg.xxss.push("Brought to you by \u30b7\u30ea\u30ab\u30bf");
-  extmsg.xxb = arr;
+  extmsg.xxss = ["Hello world! \u3053\u3093\u306b\u3061\u306f, \u4e16\u754c\u3002\u300e\ud840\ude0c\ud840\udda4\ud840\udda9\ud840\uddab\u300f",
+      "Brought to you by \u30b7\u30ea\u30ab\u30bf"];
+  extmsg.xxb = new Array([1,2,3,4]);
   extmsg.f32 = ProtoJSTest.PB.TestMessage.Flagsf32.WE | ProtoJSTest.PB.TestMessage.Flagsf32.IMAGE;
   extmsg.e32 = ProtoJSTest.PB.TestMessage.Enum32.WEB1;
+  extmsg.submes = new ProtoJSTest.PB.TestMessage.SubMessage;
 try {
   extmsg.submes.subduration = 0;
 } catch (e) {
@@ -100,6 +101,7 @@ try {
   extmsg.submessers.push().subduration = PROTO.I64.fromNumber(1);
   extmsg.submessers.push().subduration = PROTO.I64.fromNumber(2);
   extmsg.submessers.push().subduration = PROTO.I64.fromNumber(18234563242342346752);
+  extmsg.extmesser = new ProtoJSTest.PB.ExternalMessage();
   extmsg.extmesser.is_true = 5;
   output.value += extmsg;
   extmsg.SerializeToStream(b64stream);
