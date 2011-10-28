@@ -298,8 +298,8 @@ PROTO.I64.parseLEVar128 = function (stream) {
         n += offset*byt;
         offset *= 128;
     }
-    var lsw=n%4294967296
-    var msw = 0;    
+    var lsw = n%4294967296;
+    var msw = (n - lsw) / 4294967296;//move value from lsw to msw
     offset=8;
     for (var i = 0; !endloop && i < 5; i++) {
         var byt = stream.readByte();
