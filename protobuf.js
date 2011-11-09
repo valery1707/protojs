@@ -142,7 +142,7 @@ PROTO.I64.prototype = {
         if (this.sign<0) {
             local_msw=2147483647-this.msw;
             local_msw+=2147483647;
-            local_msw+=2;
+            local_msw+=1;
             local_lsw=2147483647-this.lsw;
             local_lsw+=2147483647;
             local_lsw+=2;
